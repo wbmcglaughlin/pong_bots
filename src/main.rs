@@ -20,6 +20,7 @@ fn model(app: &App) -> Model {
     let _window = app.new_window()
         .title(app.exe_name().unwrap())
         .size(WIDTH as u32, HEIGHT as u32)
+        .key_pressed(key_pressed)
         .view(view)
         .build()
         .unwrap();
@@ -61,6 +62,19 @@ fn view(app: &App, model: &Model, frame: Frame) {
     // let file_path = captured_frame_path(app, &frame);
     // println!("{:?}", file_path);
     // app.main_window().capture_frame(file_path);
+}
+
+fn key_pressed(app: &App, model: &mut Model, key: Key) {
+    match key {
+        Key::W => {
+            model.pong.players[1].pos.y += 10.0;
+        }
+        Key::S => {
+            model.pong.players[1].pos.y -= 10.0;
+        }
+        _other_key => {}
+    }
+
 }
 
 fn captured_frame_path(app: &App, frame: &Frame) -> std::path::PathBuf {
